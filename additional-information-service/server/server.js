@@ -22,7 +22,7 @@ app.get('/:urlId', (req, res) => {
 });
 
 app.use(
-  '/graphql',
+  '/graphql', cors(),
   graphqlHTTP({
     schema,
     graphiql: true,
