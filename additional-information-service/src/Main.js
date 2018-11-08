@@ -7,7 +7,7 @@ export const HouseIdContext = React.createContext({
   currentHouse: {},
 });
 
-export default class App extends React.PureComponent {
+export default class Main extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {

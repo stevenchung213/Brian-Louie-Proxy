@@ -3,8 +3,8 @@ import React from 'react';
 import { MockedProvider } from 'react-apollo/test-utils';
 import gql from 'graphql-tag';
 
-import { PreQuery } from '../App.js';
-import App from '../App.js';
+import { PreQuery } from '../Main.js';
+import Main from '../Main.js';
 import Home from '../components/Home.js';
 
 import { configure } from 'enzyme';
@@ -69,7 +69,7 @@ const mocks = [
 const flushPromises = () => new Promise(resolve => setImmediate(resolve));
 const sel = curry((dataTestId, wrapper) => wrapper.find(`[data-test="${dataTestId}"]`));
 
-describe('<App />', () => {
+describe('<Main />', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = mount(
@@ -109,7 +109,7 @@ describe('<Home />', () => {
   beforeEach(() => {
     wrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <App current={dummy} num={1} />
+        <Main current={dummy} num={1} />
       </MockedProvider>
     );
   });

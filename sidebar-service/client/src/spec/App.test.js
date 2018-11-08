@@ -10,7 +10,7 @@ const Enzyme = require('enzyme');
 
 configure({adapter: new Adapter()});
 
-describe("<App />", () => {
+describe("<Main />", () => {
   let wrapper;
   beforeEach(() => {
     wrapper = shallow(<App />);

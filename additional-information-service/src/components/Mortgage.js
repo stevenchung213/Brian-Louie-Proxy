@@ -2,7 +2,7 @@ import React from 'react';
 import NumberFormat from 'react-number-format';
 import Template from './Template.js';
 import MortgageChart from './MortgageChart.js';
-import { HouseIdContext } from '../App.js';
+import { HouseIdContext } from '../Main.js';
 import MortgageChartLegend from './MortgageChartLegend';
 
 class MortgageBase extends React.PureComponent {

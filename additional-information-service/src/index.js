@@ -15,5 +15,5 @@ ReactDOM.render(
   <ApolloProvider client={client}>
     <PreQuery />
   </ApolloProvider>,
-  document.getElementById('app'),
+  document.getElementById('main'),
 );
