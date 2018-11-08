@@ -1,10 +1,12 @@
 import mongoose from 'mongoose';
 import schema from './schema.js';
+import normalizePort from 'normalize-port';
 
 const cors = require('cors');
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const path = require('path');
+const port = normalizePort(process.env.PORT || '8081';
 
 const app = express();
 
@@ -29,4 +31,4 @@ app.use(
   }),
 );
 
-app.listen(3003, () => console.log('Express GraphQL Server Now Running On localhost:3003/graphql'));
+app.listen(port, () => console.log(`Express GraphQL Server Now Running On localhost:${port}/graphql`));
