@@ -8,7 +8,7 @@ import { PreQuery } from './components/PreQuery.js';
 const port = 8081;
 
 const client = new ApolloClient({
-  uri: `http://hr-fec-otb.us-west-1.elasticbeanstalk.com:${port}/graphql`,
+  uri: `http://hr-fec-otb.us-west-1.elasticbeanstalk.com/graphql`,
 });
 
 ReactDOM.render(
