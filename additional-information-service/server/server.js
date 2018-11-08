@@ -1,11 +1,10 @@
 const schema = require('./schema.js');
 const mongoose = require('mongoose');
-const normalizePort = require('normalize-port');
 const cors = require('cors');
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const path = require('path');
-const port = normalizePort(process.env.PORT || '8081');
+const port = 8081;
 
 const app = express();
 
