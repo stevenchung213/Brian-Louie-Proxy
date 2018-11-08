@@ -10,7 +10,7 @@ const app = express();
 
 mongoose.Promise = global.Promise;
 mongoose.connect(
-  'mongodb://localhost/houses',
+  "mongodb+srv://admin1:<admin1password>@cluster0-oo5uv.mongodb.net/admin",
   { useNewUrlParser: true },
 );
 
