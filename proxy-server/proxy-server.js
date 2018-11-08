@@ -4,8 +4,8 @@ const cors = require('cors');
 
 
 const app = express();
-// const port = 3000;
-const port = normalizePort(process.env.PORT || '8081';
+const port = 3000;
+// const port = normalizePort(process.env.PORT || '8081';
 
 app.enable('trust proxy');
 app.use(cors());
