@@ -39,7 +39,7 @@ export default class App extends React.Component {
     imageId = imageId % 100;
     console.log('imageId is ', imageId)
     if (imageId >= 0 && imageId <= 100) {
-      axios.get(`http://localhost:3001/homes/${imageId}`).then(result => {
+      axios.get(`http://localhost:3002/homes/${imageId}`).then(result => {
           console.log('result is ', result);
           this.setState({
             propInfo: result.data

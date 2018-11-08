@@ -5,7 +5,7 @@ import ApolloClient from 'apollo-boost';
 import { PreQuery } from './Components/PreQuery.js';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
+  uri: 'http://localhost:3003/graphql',
 });
 
 ReactDOM.render(

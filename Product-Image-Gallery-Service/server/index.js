@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.static(__dirname + '/../dist/'));
 
-let port = 3001;
+let port = 3002;
 
 app.get('/:id', (req, res) => {
 	console.log('hi');

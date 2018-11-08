@@ -20,7 +20,7 @@ export default class App extends React.Component {
     console.log('are you mounting');
     let sideId = Number(window.location.pathname.replace(/\//, ''));
     if(sideId === 1){
-      axios.get(`http://localhost:3002/api/sidebar/${sideId}`).then(posts => {
+      axios.get(`http://localhost:3001/api/sidebar/${sideId}`).then(posts => {
         this.setState({
           topBar: posts.data[0],
           botBar: posts.data[1]
@@ -28,7 +28,7 @@ export default class App extends React.Component {
         console.log('this is the topbar', this.state.topBar);
       })
     } 
-    axios.get(`http://localhost:3002/api/sidebar/${sideId}`).then(posts => {
+    axios.get(`http://localhost:3001/api/sidebar/${sideId}`).then(posts => {
       this.setState({
         topBar: posts.data[0],
         botBar: posts.data[1]
