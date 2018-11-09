@@ -4,7 +4,7 @@
   "description": "proxy for FEC",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon proxy-server/proxy-server.js"
+    "start": "node proxy-server/proxy-server.js"
   },
   "repository": {
     "type": "git",
