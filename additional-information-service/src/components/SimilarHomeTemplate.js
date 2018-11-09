@@ -34,6 +34,7 @@ const SimilarHomeTemplate = ({ houses, start, stop }) => {
                       ? 'https://s3-us-west-1.amazonaws.com/housing-hr/red-for-sale.png'
                       : 'https://s3-us-west-1.amazonaws.com/housing-hr/yellow-sold.png'
                   }
+                  alt=""
                 />
               </span>
               {' '}

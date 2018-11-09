@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const GraphNavbar = ({ selected, handleClick }) => (
   <div id="zestimate-graph-toolbar">
     <div id="zestimate-graph-selector-container">

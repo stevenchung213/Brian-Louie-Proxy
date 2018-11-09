@@ -37,8 +37,10 @@ export default class Main extends React.PureComponent {
 
   render() {
     return (
+
       <HouseIdContext.Provider value={this.state}>
         <div>
+          <div> LOOK AT ME MEMEMEMEMEMEMEME </div>
           <Home
             status={this.state.home}
             expand={this.handleClick}

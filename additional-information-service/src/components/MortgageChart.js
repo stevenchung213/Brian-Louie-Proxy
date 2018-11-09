@@ -20,6 +20,7 @@ export default class MortgageChart extends React.Component {
           cy={200}
           innerRadius={60}
           outerRadius={75}
+          animationDuration={3000}
         />
         <text
           x={303}
