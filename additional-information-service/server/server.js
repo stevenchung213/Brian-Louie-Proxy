@@ -1,9 +1,10 @@
-const schema = require('./schema.js');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const path = require('path');
+const schema = require('./schema.js');
+
 const port = 8081;
 
 const app = express();
@@ -29,4 +30,6 @@ app.use(
   }),
 );
 
-app.listen(port, () => console.log(`Express GraphQL Server Now Running On localhost:${port}/graphql`));
+app.listen(port, () => console.log(
+  `Express GraphQL Server Now Running On localhost:${port}/graphql`,
+));

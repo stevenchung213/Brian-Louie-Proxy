@@ -44,13 +44,9 @@ export default class Main extends React.PureComponent {
             expand={this.handleClick}
             current={this.state.currentHouse}
           />
-          <Mortgage
-            status={this.state.mortgage}
-            expand={this.handleClick}
-            />
+          <Mortgage status={this.state.mortgage} expand={this.handleClick} />
         </div>
       </HouseIdContext.Provider>
     );
   }
 }
-
