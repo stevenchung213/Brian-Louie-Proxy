@@ -96,7 +96,7 @@ sdcSeed();
 
 
 
-module.exports = seedFunc;
+module.exports = seed;
 
 // const seedDatabase = () => {
 //   House.create(seed)

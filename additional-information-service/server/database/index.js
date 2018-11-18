@@ -1,6 +1,7 @@
+const seed = require('data-seed.js');
 const cassandra = require('express-cassandra');
 // cass = models
-const cass = cassandra.createClient({
+const models = cassandra.createClient({
   clientOptions: {
     contactPoints: ['127.0.0.1'],
     protocolOptions: { port: 9042 },
@@ -17,7 +18,7 @@ const cass = cassandra.createClient({
 });
 
 
-const schema = cass.loadSchema('zillwoah', {
+const Model = models.loadSchema('zillwoah', {
   fields: {
     propertyid: 'int',
     address: 'text',
@@ -31,7 +32,7 @@ const schema = cass.loadSchema('zillwoah', {
 });
 
 
-schema.syncDB((err, result) => {
+Model.syncDB((err, result) => {
   if (err) {
     console.error(err);
   }
@@ -39,21 +40,25 @@ schema.syncDB((err, result) => {
 });
 
 
+const cassSeed = (seed) => {
+  let result = [];
+  for (let i = 0; i < 10000000; i++) {
 
-const csvSeed = `COPY zillwoah FROM 'C:\\my1.csv' WITH DELIMITER=',' AND HEADER=FALSE`;
-
-
-cass.instance.schema.execute_query(csvSeed);
-
-
-
+  }
+};
 
 
 
 
-// POSTGRES
-//
-// const { Pool } = require('pg');  // non local host
+// models.instance.schema.execute_query();
+
+
+
+
+
+// // POSTGRES
+// //
+// // const { Pool } = require('pg');  // non local host
 // const pg = require('pg');
 // // connection string
 // const connection = "postgres://postgres:102884@localhost:5432/sdc";
@@ -62,8 +67,8 @@ cass.instance.schema.execute_query(csvSeed);
 //
 // // connect
 // db.connect();
-//
-//
+
+
 // const sdc =
 //   `CREATE TABLE IF NOT EXISTS zillwoah (
 //
@@ -77,7 +82,7 @@ cass.instance.schema.execute_query(csvSeed);
 //     status varchar(10)
 //
 // )`;
-//
+
 // db.query(sdc)
 //   .then(res => {
 //     console.log(res);
@@ -87,30 +92,31 @@ cass.instance.schema.execute_query(csvSeed);
 //     console.log(err);
 //     db.end()
 //   });
-//
-//
+
+
 // const csvSeed = `COPY zillwoah FROM 'C:\\my.csv' WITH (FORMAT CSV);`;
 //
+// console.time();
 //
 // db.query(csvSeed)
 //   .then(res => {
 //     console.log(res);
+//     console.timeEnd();
 //     db.end();
 //   })
 //   .catch(err => {
 //     console.log(err);
+//     console.timeEnd();
 //     db.end();
 //   });
 //
 //
+
+const indexing = `CREATE INDEX propertyid ON zillwoah;`;
+
+const find = `SELECT * `
+
 // module.exports = db;
-
-
-
-
-
-
-
 
 
 
