@@ -50,8 +50,8 @@ console.time();
 const statusArray = ['For Sale', 'Sold'];
 
 const seedFunc = () => {
-  let count = 9000001;
-  return Array.from({length: 1000000}, () => {
+  let count = 1;
+  return Array.from({length: 10000000}, () => {
     const id = count;
     count++;
 
@@ -74,10 +74,11 @@ const seedFunc = () => {
 const seed = seedFunc();
 console.timeEnd();
 
-console.time();
+
 const sdcSeed = () => {
+  console.time();
   const csvStream = csv.createWriteStream({headers: false}),
-    writableStream = fs.createWriteStream("my10.csv");
+    writableStream = fs.createWriteStream("pg.csv");
 
   writableStream.on("finish", () => {
     console.log('CSV DONE!');
@@ -85,17 +86,18 @@ const sdcSeed = () => {
 
   csvStream.pipe(writableStream);
 
-  for (let i = 0; i < 1000000; i++) {
+  for (let i = 0; i < 10000000; i++) {
     csvStream.write(seed[i]);
   }
 
   csvStream.end();
+  console.timeEnd();
 };
 
 
 sdcSeed();
 
-console.timeEnd();
+
 
 // module.exports = seed;
 
