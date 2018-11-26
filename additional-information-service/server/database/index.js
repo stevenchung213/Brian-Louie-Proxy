@@ -16,7 +16,6 @@ const client = new cassandra.Client({
   // }
 });
 
-console.time();
 
 client.connect()
   .then(() => {
@@ -50,9 +49,10 @@ client.connect()
     return client.shutdown().then(() => { throw err; });
   });
 
-console.timeEnd();
 
 
+// EXPRESS-CASSANDRA
+//
 // client.connect((err, res) => {
 //   if (err) { console.log(err) }
 //   console.log('connected to cassandra db ' + res);
@@ -112,79 +112,6 @@ console.timeEnd();
 //   console.log('schema was changed', result);
 // });
 
-
-// const cassSeed = (seedArray) => {
-//
-//   for (let i = 0; i < 10000000; i++) {
-//
-//   }
-// };
-
-
-// models.instance.schema.execute_query();
-
-
-// // POSTGRES
-// //
-// // const { Pool } = require('pg');  // non local host
-// const pg = require('pg');
-// // connection string
-// const connection = "postgres://postgres:102884@localhost:5432/sdc";
-// // new connection
-// const db = new pg.Client(connection);
-//
-// // connect
-// db.connect();
-
-
-// const sdc =
-//   `CREATE TABLE IF NOT EXISTS zillwoah (
-//
-//     propertyid int,
-//     address varchar(84),
-//     city varchar(28),
-//     zip integer,
-//     beds decimal,
-//     baths decimal,
-//     sqft decimal,
-//     status varchar(10)
-//
-// )`;
-
-// db.query(sdc)
-//   .then(res => {
-//     console.log(res);
-//     db.end();
-//   })
-//   .catch(err => {
-//     console.log(err);
-//     db.end()
-//   });
-
-
-// const csvSeed = `COPY zillwoah FROM 'C:\\my.csv' WITH (FORMAT CSV);`;
-//
-// console.time();
-//
-// db.query(csvSeed)
-//   .then(res => {
-//     console.log(res);
-//     console.timeEnd();
-//     db.end();
-//   })
-//   .catch(err => {
-//     console.log(err);
-//     console.timeEnd();
-//     db.end();
-//   });
-//
-//
-
-const indexing = `CREATE INDEX propertyid ON zillwoah;`;
-
-const find = `SELECT * `
-
-// module.exports = db;
 
 
 // const mongoose = require('mongoose');

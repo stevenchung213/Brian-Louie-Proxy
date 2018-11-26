@@ -72,6 +72,7 @@ const seedFunc = () => {
 };
 
 const seed = seedFunc();
+
 console.timeEnd();
 
 
@@ -96,7 +97,6 @@ const sdcSeed = () => {
 
 
 sdcSeed();
-
 
 
 // module.exports = seed;

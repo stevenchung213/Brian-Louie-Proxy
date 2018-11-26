@@ -9,11 +9,11 @@ const port = 8081;
 
 const app = express();
 
-mongoose.Promise = global.Promise;
-mongoose.connect(
-  'mongodb+srv://admin1:admin1password@cluster0-ytvdt.mongodb.net/houses?retryWrites=true/',
-  { useNewUrlParser: true },
-);
+// mongoose.Promise = global.Promise;
+// mongoose.connect(
+//   'mongodb+srv://admin1:admin1password@cluster0-ytvdt.mongodb.net/houses?retryWrites=true/',
+//   { useNewUrlParser: true },
+// );
 
 app.use(cors());
 app.use(express.static(`${__dirname}/../public`));
