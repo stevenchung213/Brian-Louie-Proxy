@@ -13,18 +13,15 @@ const sdc =
   `CREATE TABLE IF NOT EXISTS zillwoah (
 
     propertyid bigint PRIMARY KEY,
-    address varchar(84),
-    baths decimal,
-    beds decimal,
-    city varchar(28),
-    sqft decimal,
-    status varchar(10),
-    zip int
+    downpayment bigint,
+    hoa int,
+    price bigint,
+    propertytaxpercent decimal
     
 )`;
 
 const create = () => {
-  console.time();
+  console.time('create');
   db.query(sdc)
     .then(res => {
       console.log(res);
@@ -34,13 +31,13 @@ const create = () => {
       console.log(err);
       db.end()
     });
-  console.timeEnd();
+  console.timeEnd('create');
 };
 
-const csvSeed = `COPY zillwoah FROM 'C:\\pg.csv' WITH (FORMAT CSV);`;
+const csvSeed = `COPY zillwoah FROM 'C:\\seed.csv' WITH (FORMAT CSV);`;
 
 const seed = () => {
-  console.time();
+  console.time('seed');
   db.query(csvSeed)
     .then(res => {
       console.log(res);
@@ -50,13 +47,13 @@ const seed = () => {
       console.log(err);
       db.end();
     });
-  console.timeEnd();
+  console.timeEnd('seed');
 };
 
 const indexing = `CREATE UNIQUE INDEX propertyid_idx ON zillwoah (propertyid);`;
 
 const index = () => {
-  console.time();
+  console.time('index');
   db.query(indexing)
     .then(res => {
       console.log(res);
@@ -66,10 +63,10 @@ const index = () => {
       console.log(err);
       db.end();
     });
-  console.timeEnd();
+  console.timeEnd('index');
 };
 
 
 // create();
 // seed();
-index();
+// index();

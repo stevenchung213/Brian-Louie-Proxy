@@ -35,6 +35,7 @@ const typeDefs = `
 
   type Query {
     allHouses: [Home]
+    getSome(num: [Int]!): [Home]
   }
   
 `;

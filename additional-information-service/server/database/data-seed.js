@@ -6,48 +6,10 @@ const csv = require('fast-csv');
 const fs = require('fs');
 
 const random = num => Math.ceil(Math.random() * num);
+const propertytax = [1.2, 1.5, 1.7, 2, 2.3, 2.7, 3];
 
-// const zestHistory = () => {
-//   let total = 300000;
-//   const years = 8 + random(2);
-//   const months = random(12);
-//   let count = 0;
-//   const spike = [12, 7, 12, 5, 8, 5, 14, 3, 19, 1000];
-//   const slope = [
-//     -4000,
-//     -3000,
-//     -1000,
-//     2000,
-//     5000,
-//     2000,
-//     5000,
-//     3000,
-//     10000,
-//     7000,
-//     700,
-//     -700,
-//   ];
-//   let moreSlope = 0;
-//
-//   return Array.from({ length: years * 12 + months }, () => {
-//     count++;
-//     if (count % spike[0] === 0) {
-//       const rand = random(4);
-//       moreSlope = rand > 2 ? 2000 : rand === 2 ? -2000 : 0;
-//       if (spike[0] === 14) {
-//         moreSlope = 8000;
-//       }
-//       spike.shift();
-//     }
-//     total += slope[Math.floor(count / 12)] + moreSlope;
-//
-//     return total + random(7000);
-//   });
-// };
 
-console.time();
-
-const statusArray = ['For Sale', 'Sold'];
+console.time('generation');
 
 const seedFunc = () => {
   let count = 1;
@@ -58,28 +20,35 @@ const seedFunc = () => {
     // const zestimate = zestHistory();
     return {
       propertyid: id,
-      address: `'${faker.address.streetAddress()}'`,
-      baths: 2.5 + 0.5 * Math.floor(Math.random() * 3),
-      beds: 3 + Math.floor(Math.random() * 2.5),
-      city: `'${faker.address.city()}'`,
-      sqft: 1150 + 10 * random(20),
-      status: `'${statusArray[Math.floor(Math.random() * 2)]}'`,
-      zip: 98100 + random(99)
+      downpayment: Math.round((Math.random() * 100000) + 100000),
+      hoa: Math.round((Math.random() * 1200) + 1200),
+      price: Math.round((Math.random() * 500000) + 500000),
+      propertytaxpercent: propertytax[Math.floor(Math.random() * propertytax.length)]
+
+      // propertyid: id,
+      // address: `'${faker.address.streetAddress()}'`,
+      // baths: 2.5 + 0.5 * Math.floor(Math.random() * 3),
+      // beds: 3 + Math.floor(Math.random() * 2.5),
+      // city: `'${faker.address.city()}'`,
+      // sqft: 1150 + 10 * random(20),
+      // status: `'${statusArray[Math.floor(Math.random() * 2)]}'`,
+      // zip: 98100 + random(99)
       // zestimate,
       // , taxAssessment: zestimate[zestimate.length - 1] * 0.937,
     };
   });
 };
 
+
 const seed = seedFunc();
 
-console.timeEnd();
+console.timeEnd('generation');
 
-
+console.time('writecsv');
 const sdcSeed = () => {
-  console.time();
+
   const csvStream = csv.createWriteStream({headers: false}),
-    writableStream = fs.createWriteStream("pg.csv");
+    writableStream = fs.createWriteStream("seed.csv");
 
   writableStream.on("finish", () => {
     console.log('CSV DONE!');
@@ -92,12 +61,11 @@ const sdcSeed = () => {
   }
 
   csvStream.end();
-  console.timeEnd();
 };
 
 
 sdcSeed();
-
+console.timeEnd('writecsv');
 
 // module.exports = seed;
 

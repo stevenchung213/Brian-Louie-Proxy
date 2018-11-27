@@ -2,28 +2,37 @@ import React from 'react';
 import NumberFormat from 'react-number-format';
 import Template from './Template.js';
 import MortgageChart from './MortgageChart.js';
-import { HouseIdContext } from '../Main.js';
+// import { HouseIdContext } from '../Main.js';
 import MortgageChartLegend from './MortgageChartLegend';
+
+const data = {
+  propertyid: 0,
+  downpayment: 80000,
+  hoa: 2000,
+  price: 1000000,
+  propertytaxpercent: 1.2
+};
 
 class MortgageBase extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      price: 0,
-      downPayment: 0,
-      downPaymentPercent: 0,
+      data: data,
+      // price: 0,
+      // downpayment: 0,
+      downpaymentpercent: 0,
       loan: 'Fixed30Year',
       interest: 4.176,
-      propertyTax: 0,
-      propertyTaxPercent: 1.2,
+      propertytax: (this.state.data.propertytaxpercent * 0.01) * this.state.data.price,
+      // propertytaxpercent: 1.2,
       insurance: 1200,
-      hoa: 0,
+      // hoa: 0,
       pmi: 0,
       displayTaxes: true,
       displayPmi: false,
-      prevTax: 0,
-      prevIns: 0,
-      prevPmi: 0,
+      prevtax: 0,
+      previns: 0,
+      prevpmi: 0,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.select = this.select.bind(this);
@@ -43,19 +52,19 @@ class MortgageBase extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.setState({
-      price: this.zestimate,
-      downPayment: Math.floor(this.zestimate * 0.0425),
-      propertyTax: Math.floor(
-        this.zestimate * (this.state.propertyTaxPercent / 100),
-      ),
-    });
+    // this.setState({
+    //   price: this.zestimate,
+    //   downpayment: Math.floor(this.zestimate * 0.0425),
+    //   propertytax: Math.floor(
+    //     this.zestimate * (this.state.propertytaxPercent / 100),
+    //   ),
+    // });
     this.getPmi();
   }
 
   checkPmi() {
     if (this.state.displayPmi) {
-      this.setState({ prevPmi: this.state.pmi });
+      this.setState({ prevpmi: this.state.pmi });
       this.setState({ pmi: 0 });
     } else {
       this.getPmi();
@@ -64,7 +73,7 @@ class MortgageBase extends React.PureComponent {
   }
 
   getPmi() {
-    const stillOwed = this.state.price - this.state.downPayment;
+    const stillOwed = this.state.data.price - this.state.data.downpayment;
     const pmi = Math.floor((stillOwed * 0.005) / 12);
     this.setState({ pmi });
   }
@@ -72,14 +81,14 @@ class MortgageBase extends React.PureComponent {
   checkTaxAndInsurance() {
     if (this.state.displayTaxes) {
       this.setState({
-        prevTax: this.state.propertyTax,
-        prevIns: this.state.insurance,
+        prevtax: this.state.data.propertytax,
+        previns: this.state.insurance,
       });
-      this.setState({ propertyTax: 0, insurance: 0 });
+      this.setState({ propertytax: 0, insurance: 0 });
     } else {
       this.setState({
-        propertyTax: this.state.prevTax,
-        insurance: this.state.prevIns,
+        propertytax: this.state.prevtax,
+        insurance: this.state.previns,
       });
     }
     this.setState({ displayTaxes: !this.state.displayTaxes });
@@ -91,7 +100,7 @@ class MortgageBase extends React.PureComponent {
 
   render() {
     let insurance = Math.floor(this.state.insurance / 12);
-    let taxes = Math.floor(this.state.propertyTax / 12);
+    let taxes = Math.floor(this.state.data.propertytax / 12);
     const getPni = (total, years, rate) => {
       const percent = rate / 100 / 12;
       const months = years * 12;
@@ -104,33 +113,33 @@ class MortgageBase extends React.PureComponent {
     const pni = this.state.loan === 'Fixed15Year'
       ? Math.floor(
         getPni(
-          this.state.price - this.state.downPayment,
+          this.state.data.price - this.state.data.downpayment,
           15,
           this.state.interest,
         ),
       )
       : Math.floor(
         getPni(
-          this.state.price - this.state.downPayment,
+          this.state.data.price - this.state.data.downpayment,
           30,
           this.state.interest,
         ),
       );
     taxes = this.state.displayTaxes ? taxes : 0;
     insurance = this.state.displayTaxes ? insurance : 0;
-    const total = insurance + taxes + this.state.hoa + pni + this.state.pmi;
+    const total = insurance + taxes + this.state.data.hoa + pni + this.state.pmi;
     const data = [
       { name: 'P&I', value: pni, fill: '#0074E4' },
       { name: 'Insurance', value: insurance, fill: '#62AEF7' },
       { name: 'Taxes', value: taxes, fill: '#3290E9' },
       { name: 'PMI', value: this.state.pmi, fill: '#1A5198' },
-      { name: 'HOA', value: this.state.hoa, fill: '#D8FOF9' },
+      { name: 'HOA', value: this.state.data.hoa, fill: '#D8FOF9' },
     ];
     const legendProps = {
       pni,
       insurance,
       taxes,
-      hoa: this.state.hoa,
+      hoa: this.state.data.hoa,
       pmi: this.state.pmi,
     };
     const lessThan100 = (values) => {
@@ -139,27 +148,21 @@ class MortgageBase extends React.PureComponent {
     };
     const lessThanPrice = (values) => {
       const { floatValue } = values;
-      return floatValue >= 0.0 && floatValue <= this.state.price;
+      return floatValue >= 0.0 && floatValue <= this.state.data.price;
     };
     return (
-      <HouseIdContext.Consumer>
-        {({ currentHouse }) => {
-          const zestimate = Math.floor(
-            currentHouse.zestimate[currentHouse.zestimate.length - 1],
-          );
-          const dPayment = Math.floor(zestimate * (this.state.interest / 100));
-          this.zestimate = zestimate;
-          return (
+
+
             <div id="mortgage-wrapper">
               <div id="mortgage-input-container">
                 <form id="mortgage-input-form" onSubmit={this.handleSubmit}>
                   <label>Home price</label>
                   <br />
                   <NumberFormat
-                    value={this.state.price}
+                    value={this.state.data.price}
                     className="mortgage-num-input"
                     decimalScale={0}
-                    defaultValue={zestimate}
+
                     displayType="input"
                     thousandSeparator
                     prefix="$"
@@ -174,9 +177,9 @@ class MortgageBase extends React.PureComponent {
                   <br />
                   <NumberFormat
                     className="mortgage-num-input mortgage-shorter"
-                    value={this.state.downPayment}
+                    value={this.state.data.downpayment}
                     decimalScale={0}
-                    defaultValue={dPayment}
+
                     displayType="input"
                     isAllowed={lessThanPrice}
                     thousandSeparator
@@ -184,22 +187,24 @@ class MortgageBase extends React.PureComponent {
                     onValueChange={(values) => {
                       const { value } = values;
                       this.getPmi();
-                      this.setState({ downPayment: Number(value) });
+                      const dp = {...this.state.data};
+                      dp.downpayment = Number(value);
+                      this.setState({ dp });
                     }}
                   />
                   <NumberFormat
                     className="mortgage-percent"
-                    // value={this.state.price / this.state.downPayment}
-                    name="downPayment-percent"
+                    value={this.state.data.price / this.state.data.downpayment}
+                    name="downpayment-percent"
                     isAllowed={lessThan100}
                     defaultValue={4.25}
                     displayType="input"
                     suffix="%"
                     onValueChange={(values) => {
                       const { value } = values;
-                      this.setState({
-                        downPayment: this.state.price * (value / 100),
-                      });
+                      const dp = {...this.state.data};
+                      dp.downpayment = this.state.data.price * (value / 100);
+                      this.setState({ dp });
                     }}
                   />
 
@@ -247,22 +252,24 @@ class MortgageBase extends React.PureComponent {
                   <br />
                   <NumberFormat
                     className="mortgage-num-input mortgage-shorter"
-                    value={this.state.propertyTax}
+                    value={this.state.data.propertytax}
                     decimalScale={0}
                     isAllowed={lessThanPrice}
-                    defaultValue={this.state.propertyTax}
+                    defaultValue={this.state.data.propertytax}
                     displayType="input"
                     thousandSeparator
                     prefix="$"
                     onValueChange={(values) => {
                       const { value } = values;
-                      this.setState({ propertyTax: Number(value) });
+                      const pt = {...this.state.data};
+                      pt.propertytax = Number(value);
+                      this.setState({ pt });
                     }}
                   />
                   <NumberFormat
                     className="mortgage-percent"
-                    // value={(this.state.price / this.state.propertyTax).toFixed(3)}
-                    name="downPayment-percent"
+                    value={(this.state.data.price / this.state.data.propertytax).toFixed(3)}
+                    name="downpayment-percent"
                     defaultValue={1.2}
                     displayType="input"
                     isAllowed={lessThan100}
@@ -270,7 +277,7 @@ class MortgageBase extends React.PureComponent {
                     onValueChange={(values) => {
                       const { value } = values;
                       this.setState({
-                        propertyTax: this.state.price * (value / 100),
+                        propertytax: this.state.data.price * (value / 100),
                       });
                     }}
                   />
@@ -282,7 +289,7 @@ class MortgageBase extends React.PureComponent {
                     value={this.state.insurance}
                     isAllowed={lessThanPrice}
                     decimalScale={0}
-                    defaultValue={dPayment}
+
                     displayType="input"
                     thousandSeparator
                     prefix="$"
@@ -296,9 +303,9 @@ class MortgageBase extends React.PureComponent {
                   <br />
                   <NumberFormat
                     className="mortgage-num-input mortgage-shorter"
-                    value={this.state.hoa}
+                    value={this.state.data.hoa}
                     decimalScale={0}
-                    defaultValue={dPayment}
+
                     displayType="input"
                     thousandSeparator
                     prefix="$"
@@ -319,9 +326,7 @@ class MortgageBase extends React.PureComponent {
                 <MortgageChart data={data} total={total} />
               </div>
             </div>
-          );
-        }}
-      </HouseIdContext.Consumer>
+
     );
   }
 }
