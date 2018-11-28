@@ -5,10 +5,11 @@ import MortgageChart from './MortgageChart.js';
 import { HouseIdContext } from '../Main.js';
 import MortgageChartLegend from './MortgageChartLegend';
 
-class MortgageBase extends React.PureComponent {
+class MortgageBase extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      property: props.currentHouse,
       price: 0,
       downPayment: 0,
       downPaymentPercent: 0,

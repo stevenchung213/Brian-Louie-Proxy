@@ -38,7 +38,7 @@ export default class Main extends React.PureComponent {
     if (propertyID > 0) {
       $.get(`http://localhost:${port}/listings/` + propertyID, result => {
       // $.get('http://su-casa-overview.us-west-1.elasticbeanstalk.com/listings/' + propertyID, result => {
-        console.log(result);
+        console.log('specific req success', result);
         let data = {
           propertyID: result[0].propertyid,
           downPayment: result[0].downpayment,
@@ -52,7 +52,7 @@ export default class Main extends React.PureComponent {
     } else {
       // $.get('http://su-casa-overview.us-west-1.elasticbeanstalk.com/listings', result => {
       $.get(`http://localhost:${port}/listings`, result => {
-        console.log('success ', result);
+        console.log('random req success ', result);
         let data = {
           propertyID: result[0].propertyid,
           downPayment: result[0].downpayment,
@@ -83,7 +83,7 @@ export default class Main extends React.PureComponent {
             {/*expand={this.handleClick}*/}
             {/*current={this.state.currentHouse}*/}
           {/*/>*/}
-          <Mortgage status={this.state.mortgage} expand={this.handleClick} />
+          <Mortgage status={this.state.mortgage}  property ={this.state.currentHouse} expand={this.handleClick} />
         </div>
       </HouseIdContext.Provider>
     );
