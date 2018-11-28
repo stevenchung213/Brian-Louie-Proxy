@@ -7,7 +7,7 @@ import ZestimateChart from './ZestimateChart.js';
 import GraphNavbar from './GraphNavbar.js';
 import LocalTaxAssessments from './LocalTaxAssessments.js';
 import MarketAppreciation from './MarketAppreciation.js';
-// import { HouseIdContext } from '../Main';
+import { HouseIdContext } from '../Main';
 
 export default class ZestimateDetails extends React.PureComponent {
   constructor(props) {

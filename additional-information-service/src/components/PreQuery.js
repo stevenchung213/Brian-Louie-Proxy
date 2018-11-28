@@ -16,12 +16,12 @@ export const PreQuery = () => {
           getSome(num: $num) {
             address
             city
-
+            zestimate
             beds
             baths
             sqFt
             status
-
+            taxAssessment
           }
         }
       `}

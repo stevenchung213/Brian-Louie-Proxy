@@ -16,7 +16,8 @@ const sdc =
     downpayment bigint,
     hoa int,
     price bigint,
-    propertytaxpercent decimal
+    propertytaxpercent decimal,
+    propertytaxx bigint
     
 )`;
 
@@ -70,3 +71,6 @@ const index = () => {
 // create();
 // seed();
 // index();
+
+module.exports.db = db;
+module.exports.connection = connection;

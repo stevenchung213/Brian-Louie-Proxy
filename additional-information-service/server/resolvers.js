@@ -11,12 +11,4 @@ const resolvers = {
   },
 };
 
-// const resolvers = {
-//   Query: {
-//     async allHouses() {
-//       return await House.find();
-//     },
-//   },
-// };
-
 module.exports = resolvers;
