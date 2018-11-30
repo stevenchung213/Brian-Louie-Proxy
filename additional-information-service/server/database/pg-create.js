@@ -35,38 +35,6 @@ const create = () => {
   console.timeEnd('create');
 };
 
-const csvSeed = `COPY zillwoah FROM 'C:\\seed.csv' WITH (FORMAT CSV);`;
-
-const seed = () => {
-  console.time('seed');
-  db.query(csvSeed)
-    .then(res => {
-      console.log(res);
-      db.end();
-    })
-    .catch(err => {
-      console.log(err);
-      db.end();
-    });
-  console.timeEnd('seed');
-};
-
-const indexing = `CREATE UNIQUE INDEX propertyid_idx ON zillwoah (propertyid);`;
-
-const index = () => {
-  console.time('index');
-  db.query(indexing)
-    .then(res => {
-      console.log(res);
-      db.end();
-    })
-    .catch(err => {
-      console.log(err);
-      db.end();
-    });
-  console.timeEnd('index');
-};
-
 
 create();
 // seed();
