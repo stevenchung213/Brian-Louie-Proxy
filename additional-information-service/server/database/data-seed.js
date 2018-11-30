@@ -51,7 +51,7 @@ console.timeEnd('generation');
 const sdcSeed = () => {
   console.time('writecsv');
   const csvStream = csv.createWriteStream({headers: false}),
-    writableStream = fs.createWriteStream("seed.csv");
+    writableStream = fs.createWriteStream("seed1.csv");
 
   writableStream.on("finish", () => {
     console.log('CSV DONE!');
