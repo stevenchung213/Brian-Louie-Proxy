@@ -68,7 +68,7 @@ const index = () => {
 };
 
 
-// create();
+create();
 // seed();
 // index();
 

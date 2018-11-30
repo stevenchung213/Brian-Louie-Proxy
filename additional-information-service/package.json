@@ -12,7 +12,9 @@
     "test": "jest src/spec/App.test.js",
     "dev": "webpack -d --mode development --watch ",
     "build": "webpack --mode=production",
-    "seed": "node server/database/data-seed.js",
+    "pgcreate": "node server/database/pg-create.js",
+    "pgseed": "node server/database/pg-seed.js",
+    "pgindex": "node server/database/pg-index.js",
     "start": "node server/server.js"
   },
   "dependencies": {
