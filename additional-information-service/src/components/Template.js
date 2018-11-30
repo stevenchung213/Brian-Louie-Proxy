@@ -1,18 +1,28 @@
 import React from 'react';
 
 function Template(Component, name) {
-  return class extends React.PureComponent {
+  return class extends React.Component {
     constructor(props) {
       super(props);
+      this.state = {
+        property: null
+      }
+    };
+
+    componentWillReceiveProps() {
+      this.forceUpdate();
     }
 
     render() {
+      console.log('TEMPLATE RANNNNNNN')
       const lowercase = name.toLowerCase();
       const title = name === 'Home' ? 'Home Value' : name;
       return (
         <div className="main-expand-container">
           <div>
-            <section>
+            <section id="random-thing" className={
+              this.props.update ? 'empty1' : 'empty2'
+            }>
               <h2
                 id={`${lowercase}-header`}
                 className={

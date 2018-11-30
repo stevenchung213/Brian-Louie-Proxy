@@ -7,6 +7,8 @@ const path = require('path');
 // const schema = require('./schema.js');
 const pg = require('pg');
 
+const compression = require('compression');
+
 const port = 8081;
 const bodyParser = require('body-parser');
 
@@ -29,21 +31,39 @@ const pool = new pg.Pool(config);
 // db.connect();
 
 
-
-// mongoose.Promise = global.Promise;
-// mongoose.connect(
-//   'mongodb+srv://admin1:admin1password@cluster0-ytvdt.mongodb.net/houses?retryWrites=true/',
-//   { useNewUrlParser: true },
-// );
+// app.use(compression());
+// app.use(compression({
+//   level: 9,               // set compression level from 1 to 9 (6 by default)
+//   filter: shouldCompress, // set predicate to determine whether to compress
+// }));
+//
+// function shouldCompress (req, res) {
+//   if (req.headers["x-no-compression"]) return false;
+//   return compression.filter(req, res);
+// }
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+
+
+
+
+
+// app.use(express.static("public"));
 app.use(express.static(`${__dirname}/../public`));
+
+app.get('*.js', function (req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
 
 app.get('/:propertyID', (req, res) => {
   res.sendFile(path.join(`${__dirname}/../public/index.html`));
+  // res.sendFile(path.resolve("public", "index.html"));
 });
+
 
 app.get('/listings/:propertyID', (req, res) => {
   const id = req.params.propertyID;

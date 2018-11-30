@@ -9,12 +9,13 @@ export const HouseIdContext = React.createContext({
 });
 const port = 8081;
 // db data goes to this.state.currenthouse = (1) record
-export default class Main extends React.PureComponent {
+export default class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       home: true,
       mortgage: true,
+      update: true,
       houseList: [this.props.rand],
       currentHouse: {
         propertyID: 0,
@@ -47,7 +48,11 @@ export default class Main extends React.PureComponent {
           propertyTaxPercent: result[0].propertytaxpercent,
           zestimate: result[0].price,
         };
-        this.setState({currentHouse: data});
+        this.setState(state => {
+          state.currentHouse = data;
+          state.update = !state.update;
+          return state;
+        });
       }, 'json');
     } else {
       // $.get('http://su-casa-overview.us-west-1.elasticbeanstalk.com/listings', result => {
@@ -61,29 +66,23 @@ export default class Main extends React.PureComponent {
           propertyTaxPercent: result[0].propertytaxpercent,
           zestimate: result[0].price
         };
-        this.setState({currentHouse: data});
+        this.setState({currentHouse: data, update: !this.state.update});
       }, 'json');
     }
-    // const randArr = [];
-    // while (randArr.length < 30) {
-    //   const rand = Math.floor(Math.random() * 100);
-    //   if (!this.state.houseList.includes(rand) && !randArr.includes(rand)) {
-    //     randArr.push(rand);
-    //   }
-    // }
-    // this.setState({ comparableHomes: randArr });
   }
 
   render() {
+    const someshit = this.state;
     return (
-      <HouseIdContext.Provider value={this.state}>
+      <HouseIdContext.Provider value={someshit}>
         <div>
           {/*<Home*/}
             {/*status={this.state.home}*/}
             {/*expand={this.handleClick}*/}
             {/*current={this.state.currentHouse}*/}
           {/*/>*/}
-          <Mortgage status={this.state.mortgage}  property ={this.state.currentHouse} expand={this.handleClick} />
+          <Mortgage update={this.state.update} status={this.state.mortgage}
+                    property ={this.state.currentHouse} expand={this.handleClick} />
         </div>
       </HouseIdContext.Provider>
     );
