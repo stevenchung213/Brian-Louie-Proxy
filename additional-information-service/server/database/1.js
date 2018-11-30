@@ -8,7 +8,7 @@ console.time('generation');
 
 const seedFunc = () => {
   let count = 1;
-  return Array.from({length: 1000000}, () => {
+  return Array.from({length: 2000000}, () => {
     const id = count;
     const price = Math.round((Math.random() * 500000) + 500000);
     const proptax =  propertytax[Math.floor(Math.random() * propertytax.length)];
@@ -43,7 +43,7 @@ const sdcSeed = () => {
 
   csvStream.pipe(writableStream);
 
-  for (let i = 0; i < 1000000; i++) {
+  for (let i = 0; i < 2000000; i++) {
     csvStream.write(seed[i]);
   }
 
