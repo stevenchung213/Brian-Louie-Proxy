@@ -17,10 +17,18 @@ const app = express();
 // connection string
 // const connection = "postgres://postgres:102884@localhost:5432/sdc";
 
+// const config = {
+//   user: 'postgres',
+//   database: 'sdc',
+//   password: '102884',
+//   port: 5432
+// };
+
 const config = {
   user: 'postgres',
+  host: 'ec2-54-193-4-249.us-west-1.compute.amazonaws.com',
   database: 'sdc',
-  password: '102884',
+  password: '',
   port: 5432
 };
 
@@ -45,8 +53,6 @@ const pool = new pg.Pool(config);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-
-
 
 
 

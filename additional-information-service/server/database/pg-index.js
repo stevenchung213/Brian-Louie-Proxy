@@ -1,7 +1,7 @@
 // const { Pool } = require('pg');  // non local host
 const pg = require('pg');
 // connection string
-const connection = "postgres://postgres:102884@localhost:5432/sdc";
+const connection = "postgres://postgres@localhost:5432/sdc";
 // new connection
 const db = new pg.Client(connection);
 
